@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 import util from "util";
 import walk from "acorn-walk";
 
@@ -30,17 +31,17 @@ export default function extractTranslationKeys(options) {
       // TODO: Where is the right place to store a state?
       this.__keys = Object.create(null);
     },
-    async generateBundle(outputOptions, bundle, isWrite) {
+    async generateBundle(_outputOptions, _bundle, isWrite) {
+      if (!isWrite) {
+        return;
+      }
       if (output) {
-        if (outputOptions.dir) {
-          // Create the output dir beforehand just in case the output is written
-          // there.
-          try {
-            await mkdir(outputOptions.dir, { recursive: true });
-          } catch (err) {
-            if (err.code !== "EEXIST") {
-              throw err;
-            }
+        // Create the directory beforehand just in case.
+        try {
+          await mkdir(path.dirname(output), { recursive: true });
+        } catch (err) {
+          if (err.code !== "EEXIST") {
+            throw err;
           }
         }
         await writeFile(output, JSON.stringify(this.__keys));
