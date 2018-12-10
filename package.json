@@ -9,7 +9,8 @@
   "author": "Shuhei Kagawa <shuhei.kagawa@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "rollup": "^0.67.4"
+    "rollup": "^0.67.4",
+    "rollup-plugin-jsx": "^1.0.3"
   },
   "dependencies": {
     "acorn-walk": "^6.1.1"
