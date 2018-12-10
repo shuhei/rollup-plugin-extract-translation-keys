@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "try": "rollup examples/index.js -c examples/rollup.config.js"
+    "try": "rollup examples/index.js -c examples/rollup.config.js",
+    "clean": "rm -rf examples/dist"
   },
   "author": "Shuhei Kagawa <shuhei.kagawa@gmail.com>",
   "license": "MIT",

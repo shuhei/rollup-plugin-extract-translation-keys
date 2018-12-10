@@ -2,7 +2,9 @@ import fs from "fs";
 import util from "util";
 import walk from "acorn-walk";
 
+const stat = util.promisify(fs.stat);
 const writeFile = util.promisify(fs.writeFile);
+const mkdir = util.promisify(fs.mkdir);
 
 const visitor = {
   CallExpression(node, state) {
@@ -28,10 +30,20 @@ export default function extractTranslationKeys(options) {
       // TODO: Where is the right place to store a state?
       this.__keys = Object.create(null);
     },
-    buildEnd() {
+    async generateBundle(outputOptions, bundle, isWrite) {
       if (output) {
-        // TODO: Find the best way to write a file with rollup.
-        return writeFile(output, JSON.stringify(this.__keys));
+        if (outputOptions.dir) {
+          // Create the output dir beforehand just in case the output is written
+          // there.
+          try {
+            await mkdir(outputOptions.dir, { recursive: true });
+          } catch (err) {
+            if (err.code !== "EEXIST") {
+              throw err;
+            }
+          }
+        }
+        await writeFile(output, JSON.stringify(this.__keys));
       }
     },
     transform(source, id) {
