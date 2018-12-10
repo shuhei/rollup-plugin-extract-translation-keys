@@ -8,6 +8,10 @@
   },
   "author": "Shuhei Kagawa <shuhei.kagawa@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/shuhei/rollup-plugin-extract-translation-keys",
+	"bugs": {
+		"url": "https://github.com/shuhei/rollup-plugin-extract-translation-keys/issues"
+	},
   "devDependencies": {
     "rollup": "^0.67.4",
     "rollup-plugin-jsx": "^1.0.3"
