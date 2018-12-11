@@ -1,20 +1,27 @@
 {
   "name": "rollup-plugin-extract-translation-keys",
   "version": "0.0.3",
-  "main": "index.js",
+  "main": "dist/rollup-plugin-extract-translation-keys.cjs.js",
+  "module": "dist/rollup-plugin-extract-translation-keys.esm.js",
   "scripts": {
-    "try": "rollup examples/index.js -c examples/rollup.config.js",
-    "clean": "rm -rf examples/dist"
+    "build": "rollup -c rollup.config.js",
+    "test": "mocha",
+    "pretest": "npm run clean && npm run build",
+    "try": "rollup test/samples/index.js -c test/samples/rollup.config.js",
+    "clean": "rm -rf dist"
   },
   "author": "Shuhei Kagawa <shuhei.kagawa@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/shuhei/rollup-plugin-extract-translation-keys",
-	"bugs": {
-		"url": "https://github.com/shuhei/rollup-plugin-extract-translation-keys/issues"
-	},
+  "bugs": {
+    "url": "https://github.com/shuhei/rollup-plugin-extract-translation-keys/issues"
+  },
   "devDependencies": {
+    "mocha": "^5.2.0",
+    "rimraf": "^2.6.2",
     "rollup": "^0.67.4",
-    "rollup-plugin-jsx": "^1.0.3"
+    "rollup-plugin-jsx": "^1.0.3",
+    "sinon": "^7.2.0"
   },
   "dependencies": {
     "acorn-walk": "^6.1.1"
