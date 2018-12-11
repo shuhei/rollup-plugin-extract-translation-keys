@@ -9,8 +9,7 @@ const rollup = require("rollup");
 const jsx = require("rollup-plugin-jsx");
 const extractTranslationKeys = require("..");
 
-const sampleDir = path.join(__dirname, "samples");
-const outputDir = path.join(sampleDir, "dist");
+const outputDir = path.join(__dirname, "dist");
 
 const readFile = util.promisify(fs.readFile);
 
@@ -32,7 +31,8 @@ const expectedKeys = {
   "some.word": "some.word"
 };
 
-async function build(options) {
+async function build(sampleName, options) {
+  const sampleDir = path.join(__dirname, "samples", sampleName);
   const inputOptions = {
     input: path.join(sampleDir, "index.js"),
     external: ["react"],
@@ -54,15 +54,26 @@ describe("rollup-plugin-extract-translation-keys", () => {
 
   it("extracts translation keys", async () => {
     const done = sinon.stub();
-    await build({ done });
+    await build("basic", { done });
 
     assert.deepEqual(done.args, [[expectedKeys]]);
   });
 
   it("writes translation keys into the specified output path", async () => {
     const output = path.join(outputDir, "translation-keys-for-test.json");
-    await build({ output });
+    await build("basic", { output });
 
     assert.deepEqual(await readJSON(output), expectedKeys);
+  });
+
+  it("extracts translation keys from custom function name", async () => {
+    const done = sinon.stub();
+    await build("custom-function-name", { done, functionName: "__TR__" });
+
+    const keys = {
+      "foo.bar": "foo.bar",
+      "bar.baz": "bar.baz"
+    };
+    assert.deepEqual(done.args, [[keys]]);
   });
 });
