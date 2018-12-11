@@ -1,4 +1,4 @@
-# rollup-plugin-extract-translation-keys (WIP)
+# rollup-plugin-extract-translation-keys (experimental)
 
 [webpack-extract-translation-keys](https://github.com/grassator/webpack-extract-translation-keys) for rollup
 
