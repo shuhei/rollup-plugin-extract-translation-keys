@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-extract-translation-keys",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/rollup-plugin-extract-translation-keys.cjs.js",
   "module": "dist/rollup-plugin-extract-translation-keys.esm.js",
   "scripts": {
